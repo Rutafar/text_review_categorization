@@ -1,20 +1,29 @@
 import json
-import os.path
 from review.Review import create_review_from_sample
+from src.data.make_first_raw_dataset import import_dataset
+from features.normalize import remove_stopwords, letters_only, lower_only
 import datetime
 import pandas as pd
-from features.normalize import remove_stopwords, letters_only, lower_only
 
 
+reviews_set_train = set()
+review_set_test = set()
+start = datetime.datetime.now()
 
+train, test = import_dataset("reviews_Video_Games.json")
 
+'''
+with open(join(_BASIC_PATH ,"interim\\train.json"), 'w') as outfile:
+    json.dump(train.to_dict(), outfile)
+'''
+'''
+for index, line in train.iterrows():
+    review = create_review_from_sample(line)
+    reviews_set_train.add(review)
 
-#path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data\\raw\\reviews_Automotive.json")
-reviews_set = set()
-start =datetime.datetime.now()
-with open("C:\\Users\\Serras\\Documents\\Fac\\2s\\TA\\textanalytics1\\data\\raw\\reviews_Video_Games.json", encoding="utf8") as json_file:
-    dataframe = pd.read_json(json_file, lines=True)
+print(reviews_set_train)
 
+'''
 '''
 with open("C:\\Users\Xavaios\\Documents\\Fac\\2 semestre\\TM\\TA_project%20_1\\data\\raw\\reviews_Automotive.json", encoding="utf8") as json_file:
     for line in json_file:
@@ -30,5 +39,6 @@ for review in reviews_set:
     text = letters_only(text)
     text = lower_only(text)
     text  = remove_stopwords(text)
-print(datetime.datetime.now() - start)
+
 '''
+print( datetime.datetime.now - start)

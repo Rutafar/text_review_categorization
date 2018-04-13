@@ -1,14 +1,18 @@
 from src.utils.utils import get_file_path
 import pandas as pd
-
+import json
+from pickle import dump
 
 def import_dataset(dataset_name):
+    reviews_list = list()
     with open(get_file_path("raw\\" + dataset_name), encoding="utf8") as json_file:
-        dataframe = (pd.read_json(json_file, lines=True)).sample(n=100000)
+        for line in json_file:
+            sample = json.loads(line)
+            reviews_list.append(sample)
 
-    train = dataframe.sample(n=70000)
-    test = dataframe.sample(n=30000)
-    return train, test
+    return reviews_list
 
-def export_sampled_datasets(train, test):
-    return 0
+
+def export_sampled_datasets(train):
+    with open(get_file_path("interim\\movies_and_tv.pkl"), "wb") as f:
+        dump(train, f)

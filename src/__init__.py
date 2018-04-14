@@ -8,10 +8,13 @@ import pandas as pd
 
 
 start = datetime.datetime.now()
-print(get_file_names)
-test = import_dataset("reviews_Movies_and_TV.json")
+files = get_file_names()
+print(type(files))
+for file in files:
+    test = import_dataset(file)
+    export_sampled_datasets(test, file)
 
-export_sampled_datasets(test)
+
 #export_sampled_datasets(train, test)
 
 '''

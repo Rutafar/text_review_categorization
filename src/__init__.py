@@ -4,13 +4,14 @@ from src.utils.utils import get_file_names
 from src.data.make_first_raw_dataset import import_dataset, export_sampled_datasets
 from features.normalize import remove_stopwords, letters_only, lower_only
 import datetime
+from tqdm import tqdm
 import pandas as pd
 
 
 start = datetime.datetime.now()
 files = get_file_names()
-print(type(files))
-for file in files:
+
+for file in tqdm(files):
     test = import_dataset(file)
     export_sampled_datasets(test, file)
 

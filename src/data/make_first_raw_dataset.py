@@ -1,8 +1,8 @@
 from src.utils.utils import get_file_path
-import pandas as pd
+
 import json
 from pickle import dump
-from tqdm import tqdm
+
 
 def import_dataset(dataset_name):
     reviews_list = list()

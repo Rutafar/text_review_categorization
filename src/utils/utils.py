@@ -1,7 +1,7 @@
 from os.path import dirname, join,  abspath
 
 _BASIC_PATH = (join(dirname(dirname(dirname(abspath(__file__)))),"data"))
-_FILE_NAMES = ['reviews_Movies_and_TV', 'reviews_Automotive', 'reviews_Cell_Phones_and_Accessories']
+_FILE_NAMES = ['reviews_Movies_and_TV', 'reviews_Automotive', 'reviews_Cell_Phones_and_Accessories', 'reviews_Video_Games']
 
 
 def get_file_path(filename):

@@ -15,5 +15,5 @@ def import_dataset(dataset_name):
 
 
 def export_sampled_datasets(train, file):
-    with open(get_file_path("interim\\"+file + ".pkl"), "wb") as f:
+    with open(get_file_path("raw\\"+file + ".pkl"), "wb") as f:
         dump(train, f)

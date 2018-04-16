@@ -8,7 +8,4 @@ print("Started converting to pickle...")
 file_pickling()
 print("File pickling ended")
 
-
-
-
 print(datetime.datetime.now() - start)

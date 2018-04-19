@@ -1,5 +1,4 @@
 from src.utils.utils import get_file_names
-from tqdm import tqdm
 from data.make_sample_dataset import read_pickle_files, divide, write_new_pickle
 
 
@@ -14,11 +13,5 @@ def sampling():
         write_new_pickle(review_list, file)
 
 
-def main():
-    sampling()
-
-
 if __name__ == '__main__':
-    main()
-
-
+    sampling()

@@ -68,26 +68,6 @@ def tag_word(text):
     return word_categories
 
 
-def bag_of_words(data):
-    for text in data:
-        vectorizer = CountVectorizer()
-        print(vectorizer.fit_transform(text).todense())
-        print(vectorizer.vocabulary_)
-
-
-def bigrm(text):
-    bigrm = bigrams(text.split())
-    print (*map(' '.join, bigrm), sep=', ')
-
-
-def only_nouns(data):
-    noun_list = list()
-    for text in data:
-        tags = tag_word(text)
-        nouns = [word for word in text if tags[word] == wordnet.NOUN]
-        noun_list.append(nouns)
-
-
 def clean(review):
     text = review.reviewText
     text = letters_only(text)

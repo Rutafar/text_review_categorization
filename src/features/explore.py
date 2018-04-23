@@ -1,6 +1,7 @@
 from nltk import pos_tag, bigrams
 from nltk.corpus import wordnet
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+
 from features.normalize import tag_word
 
 
@@ -9,6 +10,10 @@ def bag_of_words(data):
         vectorizer = CountVectorizer()
         features = vectorizer.fit_transform(text)
         print(vectorizer.vocabulary_)
+
+def tdidf(text):
+    tfidf = TfidfVectorizer.transform(text)
+    return tfidf
 
 
 def bigrm(text):

@@ -1,13 +1,14 @@
 from nltk.corpus import stopwords
-import re
+
+from re import IGNORECASE, DOTALL, sub, compile
 from nltk.stem import WordNetLemmatizer
 from nltk import pos_tag, bigrams
 from nltk.corpus import wordnet
 from sklearn.feature_extraction.text import CountVectorizer
-
+from src.utils.contractions import get_contractions
 
 def letters_only(text):
-    letters = re.sub("[^a-zA-Z]", " ", text)
+    letters = sub("[^a-zA-Z]", " ", text)
     return letters
 
 
@@ -41,6 +42,26 @@ def lemmatize(text):
     #print(lemma_list_of_words)
     return lemma_list_of_words
 
+
+def remove_contractions(normalized_text):
+    contraction_mapping = get_contractions()
+    contractions_pattern = compile('({})'.format('|'.join(contraction_mapping.keys())), flags=IGNORECASE | DOTALL)
+
+    def expand_match(contraction):
+        match = contraction.group(0)
+        first_char = match[0]
+        expanded_contraction = contraction_mapping.get(match)
+        if not expanded_contraction:
+            expanded_contraction =contraction_mapping.get(match.lower())
+        expanded_contraction = first_char + expanded_contraction[1:]
+        return expanded_contraction
+
+    normalized_text = contractions_pattern.sub(expand_match, normalized_text)
+    normalized_text = normalized_text.strip()
+    return normalized_text
+
+
+
 '''
 VB - verb
 VBP - Verb
@@ -68,11 +89,12 @@ def tag_word(text):
     return word_categories
 
 
-def clean(review):
-    text = review.reviewText
+def clean(text):
+
     text = letters_only(text)
     text = lower_only(text)
     text = remove_stopwords(text)
+    text = remove_contractions(text)
     text = lemmatize(text)
-    review.reviewText = text
-    return review
+
+    return text

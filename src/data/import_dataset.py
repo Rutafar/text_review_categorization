@@ -1,21 +1,33 @@
 import pickle
 from src.utils.utils import get_file_names, get_file_path
 from review.Review import create_review_from_sample
+from data.export_dataset import export_training_testing
+from numpy.random import choice
 from tqdm import tqdm
 
 
-def import_set():
+def import_and_divide():
     files = get_file_names()
-    review_training_set = set()
-    for file in tqdm(files):
-        file_cat = 0
+    training = list()
+    testing = list()
+    for file in files:
         with open(get_file_path('interim\\sample_' + file + '.pkl'), 'rb') as f:
             lines = pickle.load(f)
+            t = choice(lines, size=70000, replace=False)
+            for l in tqdm(t):
+                lines.remove(l)
+                l['category'] = file
+                training.append(l)
+            testing = testing + lines
 
-        for line in lines:
-            review = create_review_from_sample(line, file_cat)
-            review_training_set.add(review)
+    export_training_testing(training, testing)
 
-        file_cat = file_cat + 1
 
-    return review_training_set
+def import_set():
+    with open(get_file_path('interim\\training.pkl'), 'rb') as f:
+        training = pickle.load(f)
+
+    with open(get_file_path('interim\\testing.pkl'), 'rb') as f:
+        testing = pickle.load(f)
+
+    return training, testing

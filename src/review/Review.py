@@ -12,16 +12,20 @@ class Review(object):
 
     '''
 
-    def __init__(self, reviewerID, productID,  helpful, reviewText, overall, summary, category):
+    def __init__(self, reviewerID, productID,  helpful, reviewText, overall,category):
         self.reviewerID = reviewerID
         self.productID = productID
         self.helpful = helpful
         self.reviewText = reviewText
         self.overall = overall
-        self.summary = summary
         self.category = category
 
 
-def create_review_from_sample(sample, category):
-    review = Review(sample['reviewerID'], sample['asin'],  sample['helpful'], sample['reviewText'], sample['overall'], sample['summary'],category)
+def create_review_from_sample(sample, type):
+    if type == 'training':
+        review = Review(sample['reviewerID'], sample['asin'],  sample['helpful'], sample['reviewText'], sample['overall'],sample['category'])
+    else:
+        review = Review(sample['reviewerID'], sample['asin'], sample['helpful'], sample['reviewText'],
+                        sample['overall'], '')
+
     return review

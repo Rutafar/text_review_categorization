@@ -123,3 +123,7 @@ CONTRACTION_MAP = {
 "you're": "you are",
 "you've": "you have"
 }
+
+
+def get_contractions():
+    return CONTRACTION_MAP

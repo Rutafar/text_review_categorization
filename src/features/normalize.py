@@ -24,20 +24,20 @@ def remove_stopwords(text):
 
 def lemmatize(text):
     lemmatizer = WordNetLemmatizer()
-    word_categories = tag_word(text)
+    word_categories = tag_word(text.split())
     lemma_list_of_words =list()
-    for i in text:
+    for i in text.split():
 
-        l1 = i
-        for word in l1.split():
-            cat = word_categories.get(word)
+        word = i
 
-            if cat == ' ':
-                lemma_list_of_words.append(word)
-                continue
-            else:
-                lem = lemmatizer.lemmatize(word, cat)
-                lemma_list_of_words.append(lem)
+        cat = word_categories.get(word)
+
+        if cat == ' ':
+            lemma_list_of_words.append(word)
+            continue
+        else:
+            lem = lemmatizer.lemmatize(word, cat)
+            lemma_list_of_words.append(lem)
 
     #print(lemma_list_of_words)
     return lemma_list_of_words
@@ -73,6 +73,7 @@ JJ - adj
 def tag_word(text):
     tags = pos_tag(text)
     word_categories = dict()
+
     for word in tags:
         t = ' '
         tag = word[1][0]
@@ -94,7 +95,8 @@ def clean(text):
     text = letters_only(text)
     text = lower_only(text)
     text = remove_stopwords(text)
+
     text = remove_contractions(text)
     text = lemmatize(text)
+    return ' '.join(text)
 
-    return text

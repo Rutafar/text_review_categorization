@@ -1,19 +1,21 @@
 from nltk import pos_tag, bigrams
 from nltk.corpus import wordnet
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-
+from sklearn.decomposition import LatentDirichletAllocation
 from features.normalize import tag_word
 
 
 def bag_of_words(data):
-    for text in data:
-        vectorizer = CountVectorizer()
-        features = vectorizer.fit_transform(text)
-        print(vectorizer.vocabulary_)
+    vectorizer = CountVectorizer()
+    features = vectorizer.fit_transform(data)
+    return vectorizer, features
 
-def tdidf(text):
-    tfidf = TfidfVectorizer.transform(text)
-    return tfidf
+
+def tf_idf(text):
+    tfidf = TfidfVectorizer()
+    idfs = tfidf.fit_transform(text)
+
+    return tfidf, idfs
 
 
 def bigrm(text):
@@ -29,4 +31,5 @@ def only_nouns(data):
         noun_list.append(' '.join(nouns))
 
     return noun_list
+
 

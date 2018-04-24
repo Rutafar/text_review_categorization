@@ -16,12 +16,11 @@ def main():
     export_dataset(cleaned_review_testing_set, 'testing')
 
 
-
 def clean_sets(set_to_clean, type):
     cleaned_set = set()
     for review in tqdm(set_to_clean):
         text = clean(review['reviewText'])
-        
+
         review['reviewText'] = text
         r = create_review_from_sample(review, type)
         cleaned_set.add(r)

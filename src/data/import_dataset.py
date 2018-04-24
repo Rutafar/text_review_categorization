@@ -31,3 +31,11 @@ def import_set():
         testing = pickle.load(f)
 
     return training, testing
+
+
+def import_cleaned_training_set():
+    with open(get_file_path('processed\\training.pkl'), 'rb') as file:
+        training = pickle.load(file)
+
+    return training
+

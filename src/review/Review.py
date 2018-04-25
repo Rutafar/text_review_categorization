@@ -21,11 +21,7 @@ class Review(object):
         self.category = category
 
 
-def create_review_from_sample(sample, type):
-    if type == 'training':
-        review = Review(sample['reviewerID'], sample['asin'],  sample['helpful'], sample['reviewText'], sample['overall'],sample['category'])
-    else:
-        review = Review(sample['reviewerID'], sample['asin'], sample['helpful'], sample['reviewText'],
-                        sample['overall'], '')
+def create_review_from_sample(sample):
+    review = Review(sample['reviewerID'], sample['asin'],  sample['helpful'], sample['reviewText'], sample['overall'],sample['category'])
 
     return review

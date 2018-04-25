@@ -9,7 +9,9 @@ from review.Review import create_review_from_sample
 
 def main():
 
+
     training, testing = import_set()
+
     #cleaned_review_training_set = clean_sets(training, 'training')
     #export_dataset(cleaned_review_training_set, 'training')
     cleaned_review_testing_set = clean_sets(testing, 'testing')
@@ -22,7 +24,7 @@ def clean_sets(set_to_clean, type):
         text = clean(review['reviewText'])
 
         review['reviewText'] = text
-        r = create_review_from_sample(review, type)
+        r = create_review_from_sample(review)
         cleaned_set.add(r)
 
     return cleaned_set

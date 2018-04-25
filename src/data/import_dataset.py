@@ -18,7 +18,10 @@ def import_and_divide():
                 lines.remove(l)
                 l['category'] = file
                 training.append(l)
-            testing = testing + lines
+            for l in lines:
+                l['category'] = file
+                testing.append(l)
+
 
     export_training_testing(training, testing)
 

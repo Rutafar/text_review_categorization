@@ -3,7 +3,7 @@ from nltk.corpus import wordnet
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
 from features.normalize import tag_word
-
+from sklearn.decomposition import TruncatedSVD
 
 def bag_of_words(data):
     vectorizer = CountVectorizer()
@@ -32,4 +32,9 @@ def only_nouns(data):
 
     return noun_list
 
+def lsa(matrix):
+    ls = TruncatedSVD(n_components=500, n_iter=100)
 
+    ls.fit_transform(matrix)
+    print(ls.explained_variance_ratio_.sum())
+    print(ls)

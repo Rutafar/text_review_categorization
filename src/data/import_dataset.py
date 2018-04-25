@@ -39,3 +39,8 @@ def import_cleaned_training_set():
 
     return training
 
+def import_cleaned_testing_set():
+    with open(get_file_path('processed\\testing.pkl'), 'rb') as file:
+        testing = pickle.load(file)
+
+    return testing

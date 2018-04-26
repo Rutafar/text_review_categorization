@@ -35,20 +35,25 @@ def main():
     bow_vectorizer_nouns, bow_features_nouns = bag_of_words(nouns)
     '''
 
-    print('Lsa 500 - training')
-    reduced_training = lsa(bow_features_training, 100)
-    selector = SelectKBest(score_func=chi2, k=4).fit_transform(reduced_training.support_vectors_, categories_training)
-    print(selector.scores_)
-    print(datetime.now() - start)
-    '''
-    print('Lsa 500 - testing')
-    reduced_testing = lsa(bow_features_testing, 100)
+    print('Lsa 100 - training')
+
+    ls, reduced_training = lsa(bow_features_training, 100)
+
+
+    print('Lsa 100 - testing')
+    ls_test,reduced_testing = lsa(bow_features_testing, 100)
     print(datetime.now() - start)
     #print(reduced_training, categories_training)
     print('Model part')
     train_model(reduced_training, categories_training, reduced_testing, categories_testing)
     print(datetime.now() - start)
-'''
+    '''
+    selector = SelectKBest(k=4).fit_transform(ls.singular_values_, categories_training)
+    print(selector.scores_)
+    print(datetime.now() - start)
+   '''
+
+
 
 
 
@@ -69,7 +74,7 @@ def train_model(training, training_categories, test, test_categories):
     clf = svm.SVC(kernel='linear', C=1.0)
     print('Fitting')
 
-    clf.fit(training, training_categories)
+    clf.fit(training[:,[0,4]], training_categories)
     print(datetime.now()-start)
     print('Predicting')
     predicted = clf.predict(test)

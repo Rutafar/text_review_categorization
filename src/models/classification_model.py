@@ -10,7 +10,7 @@ def lsa(matrix, comppnents):
     print('fitting')
     fit = ls.fit_transform(matrix)
     print(str(ls.explained_variance_ratio_.sum()))
-    return fit
+    return ls, fit
 
 def stand_matrix(data):
     x = StandardScaler(with_mean=False).fit_transform(data)

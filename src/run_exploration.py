@@ -1,5 +1,6 @@
 from src.data.import_dataset import import_cleaned_training_set, import_cleaned_testing_set
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
+from sklearn.feature_selection import SelectKBest, chi2
 from data.export_dataset import export_comments
 from models.classification_model import lsa
 from features.explore import bag_of_words, only_nouns, tf_idf
@@ -35,20 +36,19 @@ def main():
     '''
 
     print('Lsa 500 - training')
-    reduced_training = lsa(bow_features_training, 150)
+    reduced_training = lsa(bow_features_training, 100)
+    selector = SelectKBest(score_func=chi2, k=4).fit_transform(reduced_training.support_vectors_, categories_training)
+    print(selector.scores_)
     print(datetime.now() - start)
+    '''
     print('Lsa 500 - testing')
-    reduced_testing = lsa(bow_features_testing, 150)
+    reduced_testing = lsa(bow_features_testing, 100)
     print(datetime.now() - start)
     #print(reduced_training, categories_training)
     print('Model part')
     train_model(reduced_training, categories_training, reduced_testing, categories_testing)
     print(datetime.now() - start)
-    '''
-    nouns = only_nouns(comments)
-    print(nouns)
-    bow_vectorizer_nouns, bow_features_nouns = bag_of_words(nouns)
-    '''
+'''
 
 
 
@@ -79,6 +79,9 @@ def train_model(training, training_categories, test, test_categories):
     print("Used Confuse, it was very effective" + confusion_matrix(test_categories, predicted))
     print("F1 Score - Vettel wins" + f1_score(test_categories, predicted))
 
+def extract_cenas(dataset):
+    movies = [[review.reviewText, review.category] for review in dataset]
+    return movies
 
 
 if __name__ == '__main__':

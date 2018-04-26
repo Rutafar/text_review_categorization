@@ -8,7 +8,7 @@ def lsa(matrix, comppnents):
 
     ls = TruncatedSVD(n_components=comppnents)
     print('fitting')
-    fit =ls.fit_transform(matrix)
+    fit = ls.fit_transform(matrix)
     '''
     with open(get_file_path('explained_nouns_back.txt'), 'a') as f:
         f.write(str(comppnents) + '\n')

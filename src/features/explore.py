@@ -5,8 +5,8 @@ from sklearn.decomposition import LatentDirichletAllocation
 from features.normalize import tag_word
 from sklearn.decomposition import TruncatedSVD
 
-def bag_of_words(data):
-    vectorizer = CountVectorizer()
+def bag_of_words(data, grams=1):
+    vectorizer = CountVectorizer(ngram_range=(grams,grams))
     features = vectorizer.fit_transform(data)
     return vectorizer, features
 

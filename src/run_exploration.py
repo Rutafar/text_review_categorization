@@ -1,5 +1,6 @@
 from src.data.import_dataset import import_cleaned_training_set, import_cleaned_testing_set
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score,recall_score
+from models.classification_model import select_features
 from sklearn.feature_selection import SelectKBest, chi2
 from data.export_dataset import export_comments
 from models.classification_model import lsa
@@ -33,25 +34,18 @@ def main():
     tf, idf_train = tf_idf(bow_features_training)
     tf, idf_test = tf_idf(bow_features_testing)
 
-    print('Lsa 100 - training bow normal')
-    ls, reduced_training = lsa(bow_features_training, 50)
+    ls, reduced_training = lsa(bow_features_training, 100)
+    ls_test, reduced_testing = lsa(bow_features_testing, 100)
 
-    generate_concepts(ls.components_, bow_vectorizer_training.get_feature_names())
+    #generate_concepts(ls.components_, bow_vectorizer_training.get_feature_names())
+    selector, training_features = select_features(4, reduced_training, categories_training)
+    selector_test, testing_features = select_features(4, reduced_testing, categories_testing)
 
-    selector = SelectKBest(k=4)
 
-    s = selector.fit_transform(reduced_training, categories_training)
-
-    plt.plot((np.sort(selector.scores_)[::-1]))
-    plt.show()
-    '''
-    print('Lsa 100 - testing bow normal')
-    ls_test, reduced_testing = lsa(bow_features_testing, 50)
-    s_t = SelectKBest(k=4).fit_transform(reduced_testing, categories_testing)
     print('MODEL BAG OF WORDS NORMAL')
-    train_model(s, categories_training, s_t, categories_testing)
+    train_model(training_features, categories_training, testing_features, categories_testing)
 
-    
+    '''
     print('\n\nBag of Nouns')
 
     nouns_training = only_nouns(comments_training)

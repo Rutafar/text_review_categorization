@@ -6,13 +6,13 @@ from features.normalize import tag_word
 from sklearn.decomposition import TruncatedSVD
 
 def bag_of_words(data, grams=1):
-    vectorizer = CountVectorizer(ngram_range=(grams,grams), stop_words=['one'], max_df=0.7)
+    vectorizer = CountVectorizer(ngram_range=(grams,grams), stop_words=['one'],  min_df=0.1)
     features = vectorizer.fit_transform(data)
     return vectorizer, features
 
 
 def tf_idf(bow):
-    tfidf = TfidfTransformer(norm='l2',smooth_idf=True,use_idf=True)
+    tfidf = TfidfTransformer(smooth_idf=True,use_idf=True)
     idfs = tfidf.fit_transform(bow)
 
     return tfidf, idfs

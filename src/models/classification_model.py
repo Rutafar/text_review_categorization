@@ -14,5 +14,6 @@ def lsa(matrix, comppnents):
 
 
 def select_features(nr_features, training_set, training_labels):
-    selector, transformed_set = SelectKBest(k=nr_features).fit_transform(training_set, training_labels)
+    selector = SelectKBest(k=nr_features)
+    transformed_set = selector.fit_transform(training_set, training_labels)
     return selector, transformed_set

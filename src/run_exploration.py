@@ -29,6 +29,9 @@ def main():
 
     bow_vectorizer_training, bow_features_training = bag_of_words(comments_training)
     bow_vectorizer_testing, bow_features_testing = bag_of_words(comments_testing)
+    tf, idf = tf_idf(bow_features_training)
+    print(idf.shape)
+    print(bow_features_training.shape)
     print('Lsa 100 - training bow normal')
     ls, reduced_training = lsa(bow_features_training, 100)
     selector = SelectKBest(k=3)
@@ -38,7 +41,7 @@ def main():
     s_t = SelectKBest(k=3).fit_transform(reduced_testing, categories_testing)
     print('MODEL BAG OF WORDS NORMAL')
     train_model(s, categories_training, s_t, categories_testing)
-
+    '''
     print('\n\nBag of Nouns')
     nouns_training = only_nouns(comments_training)
     nouns_testing = only_nouns(comments_testing)
@@ -50,7 +53,9 @@ def main():
     s_n_t = SelectKBest(k=3).fit(ls_reduces_nouns_testing, categories_testing)
     print('MODEL BAG OF NOUNS')
     train_model(s_n, categories_training, s_n_t, categories_testing)
-
+    
+    
+    
     print('\n\nBigrams')
     bow_vec_train_big, bow_feat_train_big = bag_of_words(comments_training, 2)
     bow_vec_test_big, bow_feat_test_big = bag_of_words(comments_testing, 2)
@@ -60,7 +65,7 @@ def main():
     s_big_t = SelectKBest(k=3).fit_transform(ls_reduced_test_big, categories_testing)
     print('MODEL BIGRAMS')
     train_model(s_big, categories_training, s_big_t, categories_testing)
-
+    '''
 
 
     print(datetime.now() - start)
@@ -106,9 +111,9 @@ def train_model(training, training_categories, test, test_categories):
     #plot_confusion_matrix(confusion)
     #print("Used Confuse, it was very effective" + confusion)
     #f1 = f1_score(test_categories, predicted, average='weighted')
-    precision = precision_score(test_categories, predicted, average='micro')
+    precision = precision_score(test_categories, predicted, average='macro')
 
-    recall = recall_score(test_categories, predicted, average='micro')
+    recall = recall_score(test_categories, predicted, average='macro')
     f_cenas = np.round((2*precision*recall)/(precision+recall),2)
     print("F Cenas " + str(f_cenas))
     print("Recall " + str(recall))

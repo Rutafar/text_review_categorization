@@ -12,7 +12,3 @@ def lsa(matrix, comppnents):
     print(str(ls.explained_variance_ratio_.sum()))
     return ls, fit
 
-def stand_matrix(data):
-    x = StandardScaler(with_mean=False).fit_transform(data)
-    x_sparse = csr_matrix(x)
-    return x_sparse

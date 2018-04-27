@@ -17,3 +17,7 @@ def export_training_testing(training, testing):
 
     with open(get_file_path("interim\\testing.pkl"), "wb") as file:
         pickle.dump(testing, file, pickle.HIGHEST_PROTOCOL)
+
+def export_scores(scores):
+    with open(get_file_path("scores.txt"), "w") as file:
+        file.write(scores)

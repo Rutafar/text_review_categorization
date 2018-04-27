@@ -1,6 +1,6 @@
 from nltk import pos_tag, bigrams
 from nltk.corpus import wordnet
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.decomposition import LatentDirichletAllocation
 from features.normalize import tag_word
 from sklearn.decomposition import TruncatedSVD
@@ -11,9 +11,9 @@ def bag_of_words(data, grams=1):
     return vectorizer, features
 
 
-def tf_idf(text):
-    tfidf = TfidfVectorizer()
-    idfs = tfidf.fit_transform(text)
+def tf_idf(bow):
+    tfidf = TfidfTransformer(smooth_idf=True,use_idf=True)
+    idfs = tfidf.fit_transform(bow)
 
     return tfidf, idfs
 

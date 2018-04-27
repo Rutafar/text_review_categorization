@@ -29,10 +29,19 @@ def main():
 
     bow_vectorizer_training, bow_features_training = bag_of_words(comments_training)
     bow_vectorizer_testing, bow_features_testing = bag_of_words(comments_testing)
+<<<<<<< HEAD
 
     tf, idf_train = tf_idf(bow_features_training)
     tf, idf_test = tf_idf(bow_features_testing)
 
+=======
+    tf, idf_train = tf_idf(bow_features_training)
+    tf, idf_test = tf_idf(bow_features_testing)
+
+    tf, idf = tf_idf(bow_features_training)
+    print(idf.shape)
+    print(bow_features_training.shape)
+>>>>>>> 119175c29b8d8f5e2e7777e1c76fbd6ae0cc5b3d
     print('Lsa 100 - training bow normal')
     ls, reduced_training = lsa(idf_train, 100)
     selector = SelectKBest(k=4)
@@ -40,6 +49,22 @@ def main():
     print('Lsa 100 - testing bow normal')
     ls_test, reduced_testing = lsa(idf_test, 100)
     s_t = SelectKBest(k=4).fit_transform(reduced_testing, categories_testing)
+<<<<<<< HEAD
+=======
+    print('MODEL BAG OF WORDS NORMAL')
+    train_model(s, categories_training, s_t, categories_testing)
+
+    '''
+    print('Lsa 100 - training bow normal')
+
+    ls, reduced_training = lsa(bow_features_training, 20)
+    selector = SelectKBest(k=4)
+    s = selector.fit_transform(reduced_training, categories_training)
+    print('Lsa 100 - testing bow normal')
+    ls_test, reduced_testing = lsa(bow_features_testing, 20)
+    s_t = SelectKBest(k=4).fit_transform(reduced_testing, categories_testing)
+
+>>>>>>> 119175c29b8d8f5e2e7777e1c76fbd6ae0cc5b3d
     print('MODEL BAG OF WORDS NORMAL')
     train_model(s, categories_training, s_t, categories_testing)
 
@@ -72,7 +97,11 @@ def main():
     train_model(s_n, categories_training, s_n_t, categories_testing)
 
 
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 119175c29b8d8f5e2e7777e1c76fbd6ae0cc5b3d
     print('\n\nBigrams')
     bow_vec_train_big, bow_feat_train_big = bag_of_words(comments_training, 2)
     bow_vec_test_big, bow_feat_test_big = bag_of_words(comments_testing, 2)

@@ -6,7 +6,7 @@ from features.normalize import tag_word
 from sklearn.decomposition import TruncatedSVD
 
 def bag_of_words(data, grams=1):
-    vectorizer = CountVectorizer(ngram_range=(grams,grams), stop_words=['one'], max_df=0.8)
+    vectorizer = CountVectorizer(ngram_range=(grams,grams), stop_words=['one'], min_df=0.1)
     features = vectorizer.fit_transform(data)
     return vectorizer, features
 

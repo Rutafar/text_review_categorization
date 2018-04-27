@@ -1,5 +1,5 @@
 from src.data.import_dataset import import_cleaned_training_set, import_cleaned_testing_set
-from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score,recall_score
+from sklearn.metrics import accuracy_score, confusion_matrix, precision_score,recall_score
 from models.classification_model import select_features
 from sklearn.feature_selection import SelectKBest, chi2
 from data.export_dataset import export_comments
@@ -81,15 +81,10 @@ def main():
     print(datetime.now() - start)
 
 
-
-
-
-
-
-
 def extract_comments_from_reviews(dataset):
     comments_only = [review.reviewText for review in dataset]
     return comments_only
+
 
 def extract_categories_from_reviews(dataset):
 
@@ -110,15 +105,12 @@ def train_model(training, training_categories, test, test_categories):
     print("Accuracy: " + str(accuracy_score(test_categories, predicted)))
     confusion = confusion_matrix(test_categories, predicted)
     plot_confusion_matrix(confusion)
-    #f1 = f1_score(test_categories, predicted, average='weighted')
     precision = precision_score(test_categories, predicted, average='macro')
-
     recall = recall_score(test_categories, predicted, average='macro')
     f_cenas = np.round((2*precision*recall)/(precision+recall),2)
     print("F Cenas " + str(f_cenas))
     print("Recall " + str(recall))
     print("Precision " + str(precision))
-    #print("F1 Score - Vettel wins" + f1)
 
 def extract_cenas(dataset):
     movies = [[review.reviewText, review.category] for review in dataset]

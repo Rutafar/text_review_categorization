@@ -1,6 +1,4 @@
 from sklearn.decomposition import TruncatedSVD
-from src.utils.utils import get_file_names, get_file_path
-from sklearn.preprocessing import StandardScaler
 from sklearn.feature_selection import SelectKBest
 
 

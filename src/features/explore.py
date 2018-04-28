@@ -2,6 +2,7 @@ from nltk import pos_tag, bigrams
 from nltk.corpus import wordnet
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from features.normalize import tag_word
+from tqdm import tqdm
 
 
 def bag_of_words(data, grams=1):
@@ -24,11 +25,10 @@ def bigrm(text):
 
 def only_nouns(data):
     noun_list = list()
-    for text in data:
+    for text in tqdm(data):
         tags = tag_word(text.split())
         nouns = [word for word in text.split() if tags[word] == wordnet.NOUN]
         noun_list.append(' '.join(nouns))
 
     return noun_list
-
 

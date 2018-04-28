@@ -1,9 +1,7 @@
-import datetime
+
 from tqdm import tqdm
 from src.utils.utils import get_file_names
 from src.data.make_first_raw_dataset import import_dataset, export_sampled_datasets
-
-start = datetime.datetime.now()
 
 
 def file_pickling():
@@ -13,4 +11,5 @@ def file_pickling():
         export_sampled_datasets(test, file)
 
 
-print(datetime.datetime.now() - start)
+if __name__ == '__main__':
+    file_pickling()

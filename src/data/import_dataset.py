@@ -1,6 +1,5 @@
 import pickle
 from src.utils.utils import get_file_names, get_file_path
-from review.Review import create_review_from_sample
 from data.export_dataset import export_training_testing
 from numpy.random import choice
 from tqdm import tqdm

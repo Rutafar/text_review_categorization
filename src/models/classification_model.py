@@ -1,7 +1,7 @@
 from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_selection import SelectKBest
 from sklearn.metrics import accuracy_score, confusion_matrix, precision_score,recall_score
-from features.explore import bag_of_words, only_nouns, tf_idf
+from features.explore import bag_of_words, tf_idf
 from sklearn import svm
 from datetime import datetime
 import numpy as np

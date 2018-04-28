@@ -1,4 +1,4 @@
-from nltk import pos_tag, bigrams
+from nltk import bigrams
 from nltk.corpus import wordnet
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from features.normalize import tag_word

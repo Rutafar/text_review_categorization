@@ -2,10 +2,10 @@ from nltk.corpus import stopwords
 
 from re import IGNORECASE, DOTALL, sub, compile
 from nltk.stem import WordNetLemmatizer
-from nltk import pos_tag, bigrams
+from nltk import pos_tag
 from nltk.corpus import wordnet
-from sklearn.feature_extraction.text import CountVectorizer
 from src.utils.contractions import get_contractions
+
 
 def letters_only(text):
     letters = sub("[^a-zA-Z]", " ", text)
@@ -39,7 +39,6 @@ def lemmatize(text):
             lem = lemmatizer.lemmatize(word, cat)
             lemma_list_of_words.append(lem)
 
-    #print(lemma_list_of_words)
     return lemma_list_of_words
 
 

@@ -1,5 +1,4 @@
 from src.utils.utils import get_file_path
-
 import json
 from pickle import dump
 

@@ -2,6 +2,8 @@ import pandas as pd
 import itertools
 import matplotlib.pyplot as plt
 import numpy as np
+import pickle
+from src.utils.utils import get_file_names
 
 from src.utils.utils import get_file_path
 
@@ -47,4 +49,35 @@ def plot_explained_variance(file_name):
     plt.ylabel('Number of Components')
     plt.xlabel('Explained Variance')
     plt.title('Bag Of Nouns SVD Components Explained Variance')
+    plt.show()
+
+
+def prepare_dataframe():
+    with open(get_file_path("dataframe.pkl"), 'rb') as f:
+        df = pickle.load(f)
+    new_df = pd.DataFrame(index=['reviews_Automotive', 'reviews_Cell_Phones_and_Accessories', 'reviews_Video_Games', 'reviews_Movies_and_TV'], columns=[0,1,2,3,4,5,6,7,8,9])
+    for file in get_file_names():
+        for i in range(0,10):
+            df_temp = df[df.categories == file]
+            m = df_temp[i].mean()
+            new_df.at[file, i] = m
+
+    return new_df
+
+
+def plot_heatmap():
+    classes = ['Automotive', 'Cell_Phones', 'Video_Games', 'Movies_and_TV']
+    concepts = [0,1,2,3,4,5,6,7,8,9]
+    df = prepare_dataframe()
+    array_values = df.values
+    array_values = array_values.astype(float)
+
+    plt.imshow(array_values, cmap=plt.cm.BuGn, interpolation='nearest')
+    plt.ylabel('Categories')
+    plt.xlabel('Concepts')
+
+    tick_marks_x = np.arange(len(classes))
+    plt.yticks(tick_marks_x, classes)
+    plt.xticks(np.arange(len(concepts)), concepts)
+    plt.tight_layout()
     plt.show()

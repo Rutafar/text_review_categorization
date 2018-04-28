@@ -3,9 +3,11 @@ import itertools
 import matplotlib.pyplot as plt
 import numpy as np
 
+from src.utils.utils import get_file_path
+
 
 def display_features(features, feature_names):
-    df = pd.Dataframe(data=features, columns=feature_names)
+    df = pd.DataFrame(data=features, columns=feature_names)
     return df
 
 
@@ -27,4 +29,22 @@ def plot_confusion_matrix(confusion):
     plt.xticks(tick_marks, classes, rotation=45)
     plt.yticks(tick_marks, classes)
     plt.tight_layout()
+    plt.show()
+
+
+def plot_explained_variance(file_name):
+    file = open(get_file_path(file_name), "r")
+    total = 0.0
+    data = list()
+    data_y = list()
+    i = 1
+    for num in file.read().split():
+        total = float(num) + total
+        data.append(total)
+        data_y.append(i)
+        i += 1
+    plt.plot(data, data_y)
+    plt.ylabel('Number of Components')
+    plt.xlabel('Explained Variance')
+    plt.title('Bag Of Nouns SVD Components Explained Variance')
     plt.show()

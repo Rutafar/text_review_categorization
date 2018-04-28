@@ -32,3 +32,12 @@ def only_nouns(data):
 
     return noun_list
 
+
+def generate_concepts(components,feature_names):
+    for i, comp in enumerate(components):
+        termsInComp = zip(feature_names, comp)
+        sortedTerms = sorted(termsInComp, key=lambda x: x[1], reverse=True)[:10]
+        print("Concept %d:" % i)
+        for term in sortedTerms:
+            print(term[0])
+        print(" ")
